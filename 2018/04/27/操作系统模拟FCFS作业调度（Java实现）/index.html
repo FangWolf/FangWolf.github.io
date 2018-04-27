@@ -43,8 +43,6 @@
     
     <title>
         
-            Hello Hexo | 
-        
         Hexo
     </title>
 
@@ -219,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Hexo">
-    <meta name="msapplication-starturl" content="http://yoursite.com/2018/04/23/Hello-Hexo/">
+    <meta name="msapplication-starturl" content="http://yoursite.com/2018/04/27/操作系统模拟FCFS作业调度（Java实现）/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Hexo">
@@ -234,16 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com/2018/04/23/Hello-Hexo/">
+    <meta property="og:url" content="http://yoursite.com/2018/04/27/操作系统模拟FCFS作业调度（Java实现）/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Hello Hexo | Hexo">
+    <meta property="og:title" content="Hexo">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
     
-        <meta property="article:published_time" content="Mon Apr 23 2018 14:56:33 GMT+0800">
-        <meta property="article:modified_time" content="Mon Apr 23 2018 14:56:33 GMT+0800">
+        <meta property="article:published_time" content="Fri Apr 27 2018 20:35:26 GMT+0800">
+        <meta property="article:modified_time" content="Fri Apr 27 2018 20:34:32 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -251,7 +249,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/2018/04/23/Hello-Hexo/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2018/04/27/操作系统模拟FCFS作业调度（Java实现）/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -263,10 +261,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://yoursite.com/2018/04/23/Hello-Hexo/index.html",
-    "headline": "Hello Hexo",
-    "datePublished": "Mon Apr 23 2018 14:56:33 GMT+0800",
-    "dateModified": "Mon Apr 23 2018 14:56:33 GMT+0800",
+    "mainEntityOfPage": "http://yoursite.com/2018/04/27/操作系统模拟FCFS作业调度（Java实现）/index.html",
+    "headline": "",
+    "datePublished": "Fri Apr 27 2018 20:35:26 GMT+0800",
+    "dateModified": "Fri Apr 27 2018 20:34:32 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Fang Wolf",
@@ -461,9 +459,19 @@
     
         <div class="post-content_wrapper">
             <p class="post-title">
-                Hello Hexo
+                
             </p>
-            
+            <p>#1.作业和作业调度<br>概念：作业是用户提交给系统的一项相对独立的工作。操作员把用户提交的作业通过相应的输入设备输入到磁盘存储器，并保存在一个后备作业队列中。再由作业调度程序将其从外存调入内存。</p>
+<p>#2.先来先服务（FCFS）调度算法<br>解释：系统按照作业来的时间去处理作业。</p>
+<p>#3.作业的状态<br>到达时间：作业到达的时间<br>开始时间：开始处理作业的时间<br>服务时间：处理该作业需要的时间<br>完成时间：作业处理完成的时间<br>周转时间：作业从进入到完成所消耗的时间<br>带权周转时间：作业的 周转时间 与它的 服务时间 之比</p>
+<p>#4.举个栗子<br>|名字| 到达时间 | 开始时间 | 服务时间 | 完成时间 | 周转时间 | 带权周转时间 |<br>| - | :-: | -: | -: | -: | -: |  -: |<br>| A | 1 | 1 |  2 | 3 | 2 | 1 |<br>| B | 2 | 3 |  3 | 6 | 4 | 1.33 |<br>| C | 4 | 6 | 4 |10 | 6 | 1.5 |<br>完成时间 = 开始时间 + 服务时间<br>周转时间 = 完成时间 - 到达时间<br>带权周转时间 = 周转时间 / 服务时间</p>
+<p>#5模拟实现<br>先输入一个数n,表示共有那个作业，在接下来的n行输入中，每行包含三个数据：作业名、到达时间、服务时间。输出中 W：等待状态，F：完成状态。</p>
+<p>######作业类（Mission）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">public class Mission implements Comparable&lt;Mission&gt; &#123;</span><br><span class="line">    String name;</span><br><span class="line">    int ArrivalTime;    //到达时间</span><br><span class="line">    int ServiceTime;    //服务时间</span><br><span class="line">    int StartingTime;   //开始时间</span><br><span class="line">    int FinishingTime;  //完成时间</span><br><span class="line">    int TurnAroundTime; //周转时间</span><br><span class="line">    double WeightTurnAroundTime; //带权周转时间</span><br><span class="line">    String ServiceStatus; //运行状态</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getArrivalTime() &#123;</span><br><span class="line">        return ArrivalTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setArrivalTime(int arrivalTime) &#123;</span><br><span class="line">        ArrivalTime = arrivalTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getServiceTime() &#123;</span><br><span class="line">        return ServiceTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setServiceTime(int serviceTime) &#123;</span><br><span class="line">        ServiceTime = serviceTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getStartingTime() &#123;</span><br><span class="line">        return StartingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setStartingTime(int startingTime) &#123;</span><br><span class="line">        StartingTime = startingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getFinishingTime() &#123;</span><br><span class="line">        return FinishingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setFinishingTime(int finishingTime) &#123;</span><br><span class="line">        FinishingTime = finishingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getTurnAroundTime() &#123;</span><br><span class="line">        return TurnAroundTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTurnAroundTime(int turnAroundTime) &#123;</span><br><span class="line">        TurnAroundTime = turnAroundTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public double getWeightTurnAroundTime() &#123;</span><br><span class="line">        return WeightTurnAroundTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWeightTurnAroundTime(double weightTurnAroundTime) &#123;</span><br><span class="line">        WeightTurnAroundTime = weightTurnAroundTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getServiceStatus() &#123;</span><br><span class="line">        return ServiceStatus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setServiceStatus(String serviceStatus) &#123;</span><br><span class="line">        ServiceStatus = serviceStatus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(Mission o) &#123;</span><br><span class="line">        if (this.ArrivalTime &gt;= o.getArrivalTime()) &#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>######主类（Main）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Collections;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;Mission&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        Scanner scanner = new Scanner(System.in);</span><br><span class="line">        System.out.println(&quot;输入任务数&quot;);</span><br><span class="line">        int n = scanner.nextInt();</span><br><span class="line">        scanner.nextLine();</span><br><span class="line">        System.out.println(&quot;输入作业名 到达时间 服务时间&quot;);</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            String s = scanner.nextLine();</span><br><span class="line">            String[] ss = s.split(&quot; &quot;);</span><br><span class="line">            Mission mission=new Mission();</span><br><span class="line">            mission.setName(ss[0]);</span><br><span class="line">            mission.setArrivalTime(Integer.parseInt(ss[1]));</span><br><span class="line">            mission.setServiceTime(Integer.parseInt(ss[2]));</span><br><span class="line">            mission.setServiceStatus(&quot;W&quot;);  //状态初始为W</span><br><span class="line">            list.add(mission);</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.sort(list);//按到达时间排序</span><br><span class="line">        new Dispatch(list); //调度</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######调度类（Dispatch）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class Dispatch &#123;</span><br><span class="line">    public Dispatch(List&lt;Mission&gt; list) &#123;</span><br><span class="line">        System.out.println(&quot;准备调度作业&quot;);</span><br><span class="line">        for (Mission m : list) &#123;</span><br><span class="line">            System.out.println(m.getName() + &quot;-&quot; + m.getServiceStatus());</span><br><span class="line">        &#125;</span><br><span class="line">        //第一个</span><br><span class="line">        //开始时间</span><br><span class="line">        list.get(0).setStartingTime(list.get(0).getArrivalTime());</span><br><span class="line">        //完成时间</span><br><span class="line">        list.get(0).setFinishingTime(list.get(0).getArrivalTime() + list.get(0).getServiceTime());</span><br><span class="line">        //周转时间</span><br><span class="line">        list.get(0).setTurnAroundTime(list.get(0).getFinishingTime() - list.get(0).getArrivalTime());</span><br><span class="line">        //带权周转时间</span><br><span class="line">        list.get(0).setWeightTurnAroundTime((double) list.get(0).getTurnAroundTime() / (double) list.get(0).getServiceTime());</span><br><span class="line">        //状态</span><br><span class="line">        list.get(0).setServiceStatus(&quot;F&quot;);</span><br><span class="line">        System.out.println(&quot;处理=&quot; + list.get(0).getName() +</span><br><span class="line">                &quot; 周转时间=&quot; + list.get(0).getTurnAroundTime() +</span><br><span class="line">                &quot; 带权周转时间=&quot; + list.get(0).getWeightTurnAroundTime());</span><br><span class="line">        for (Mission m : list) &#123;</span><br><span class="line">            System.out.println(m.getName() + &quot;-&quot; + m.getServiceStatus());</span><br><span class="line">        &#125;</span><br><span class="line">        //第二个及以后的</span><br><span class="line">        for (int i = 1; i &lt; list.size(); i++) &#123;</span><br><span class="line">            //开始时间</span><br><span class="line">            list.get(i).setStartingTime(list.get(i - 1).getFinishingTime());</span><br><span class="line">            //完成时间</span><br><span class="line">            list.get(i).setFinishingTime(list.get(i).getStartingTime() + list.get(i).getServiceTime());</span><br><span class="line">            //周转时间</span><br><span class="line">            list.get(i).setTurnAroundTime(list.get(i).getFinishingTime() - list.get(i).getArrivalTime());</span><br><span class="line">            //带权周转时间</span><br><span class="line">            list.get(i).setWeightTurnAroundTime((double)list.get(i).getTurnAroundTime() / (double) list.get(i).getServiceTime());</span><br><span class="line">            //状态</span><br><span class="line">            list.get(i).setServiceStatus(&quot;F&quot;);</span><br><span class="line">            System.out.println(&quot;处理=&quot; + list.get(i).getName() +</span><br><span class="line">                    &quot; 周转时间=&quot; + list.get(i).getTurnAroundTime() +</span><br><span class="line">                    &quot; 带权周转时间=&quot; + list.get(i).getWeightTurnAroundTime());</span><br><span class="line">            for (Mission m : list) &#123;</span><br><span class="line">                System.out.println(m.getName() + &quot;-&quot; + m.getServiceStatus());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试：<img src="https://upload-images.jianshu.io/upload_images/8330551-e0f40201bb9bb5e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="运行结果"><br>这是本人的第一篇简书呦，如有不足，还请指正哦~<br>源码在GitHub：<a href="https://github.com/FangWolf/simFCFS-SJF" target="_blank" rel="noopener">https://github.com/FangWolf/simFCFS-SJF</a></p>
+
             
         </div>
     
@@ -485,21 +493,13 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/04/27/操作系统模拟FCFS作业调度（Java实现）/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2018/04/23/hello-world/" id="post_nav-older" class="next-content">
+        <a href="/2018/04/23/Hello-Hexo/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
